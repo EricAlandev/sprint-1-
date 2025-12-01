@@ -50,3 +50,5 @@ bash
 Copiar código
 cd src
 python -m python.lib.api
+
+---Ao criar seu usuário via aplicação. Vá para seu banco de dados e atualize a autorização do usuário para Admin e define que ele terá todas as roles existentes para evita possíveis bugs.----
