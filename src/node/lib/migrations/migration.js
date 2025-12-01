@@ -23,6 +23,16 @@ export async function Migrations() {
     )`;
     await pool.query(sql_Roles);
 
+    // Inserir roles padrão
+    const sql_InsertRoles = `
+    INSERT INTO roles (role, description)
+    VALUES
+        ('Canais_Digitais', 'Responsável por realizar o monitoramento, análise e controle operacional dos canais digitais da empresa'),
+        ('Financeiro', 'Responsável por realizar o monitoramento de regras voltada a setores financeiros'),
+        ('SEM_ROLE', 'Usuários recém-criados sem permissões definidas')
+    ON CONFLICT (role) DO NOTHING;
+    `;
+
     // Regras
     const sql_REGRAS = `CREATE TABLE IF NOT EXISTS regras (
         id serial NOT NULL PRIMARY KEY,
