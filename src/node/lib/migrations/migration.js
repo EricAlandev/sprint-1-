@@ -21,18 +21,21 @@ export async function Migrations() {
         role varchar(30) NOT NULL,
         description varchar(150)
     )`;
-    await pool.query(sql_Roles);
+    const tableRoles await pool.query(sql_Roles);
 
+    //se tiver criado a table roles. Aí insere os values
+    if (tableRoles.rows.lenght > 0) {
     // Inserir roles padrão
-    const sql_InsertRoles = `
-    INSERT INTO roles (role, description)
-    VALUES
-        ('Canais_Digitais', 'Responsável por realizar o monitoramento, análise e controle operacional dos canais digitais da empresa'),
-        ('Financeiro', 'Responsável por realizar o monitoramento de regras voltada a setores financeiros'),
-        ('SEM_ROLE', 'Usuários recém-criados sem permissões definidas')
-    ON CONFLICT (role) DO NOTHING;
-    `;
-
+        const sql_InsertRoles = `
+        INSERT INTO roles (role, description)
+        VALUES
+            ('Canais_Digitais', 'Responsável por realizar o monitoramento, análise e controle operacional dos canais digitais da empresa'),
+            ('Financeiro', 'Responsável por realizar o monitoramento de regras voltada a setores financeiros'),
+            ('SEM_ROLE', 'Usuários recém-criados sem permissões definidas')
+        ON CONFLICT (role) DO NOTHING;
+        `;
+    }
+    
     // Regras
     const sql_REGRAS = `CREATE TABLE IF NOT EXISTS regras (
         id serial NOT NULL PRIMARY KEY,
